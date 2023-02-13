@@ -1,0 +1,45 @@
+************Cách tạo một database **********
+1. Click "create database"
+2. choose a database creation method
+3. Chọn  "Engine options" => Ex: MySql -> 
+chọn "Engine Version" => Ex: MySql 8.0.28
+
+4. Chọn Templates:
+với Option "Production" là default với all tại môi trường product
+Với Option "Dev/Test" là khi ở môi trường ngoài môi trường product
+Với Option "Free tier" sử dụng ở mức free tier
+
+5. chọn "Availability and durability" để chọn "deployment options" 
+6. Setting identifier: nhập name 
+-> nhập master username : ví dụ admin -> nhập passwd
+7. Nhập cấu hình "Instance configuration" để chọn Db instance class
+Nếu ở step 4 chọn "Production" thì nếu bạn muốn chọn class cấu hình free tier thì phải chọn db.t2.micro để ko bị trừ phí
+-> enable "include previous generation classes"
+8. Chọn "Storage" -> chọn type General purpose SDD (gp2) để dùng storage của free tier
+-> nhập "Allocated storage" khoảng : 20Gb là đủ để test
+-> Trong "Storage autoscaling" chọn enable "Enable storage autoscaling" -> chọn maximum storage threshold là 1000Gb
+9. Trong "Availability & durability" muốn sử dụng "Multi-AZ deployment" không 
+-> chọn tạo standby instance hoặc không tạo standby
+10. chọn Connectivity 
+-> Có thể chọn kết nối với một " EC2 compute resource" để deployment chẳng hạn
+-> network type có thể chọn IPv4 hoặc Dual-stack mode tùy ý
+-> chọn "DB subnet group" cho kết nối
+-> chọn "Security Group" => có thể chọn new mới trước sau đó update lại sau
+nếu chọn default subnet group thì cần chỉnh lại inbound của "Security Group" để có thể kết nối tới database
+-> chọn "Certificate authority" 
+11. chọn "Additional configuration"
+-> Enable public accessible -> chọn port 3306
+
+-> chọn backup period 7days
+
+-> chọn "Log exports" enable "Audit log"
+
+-> "Deletion protection" để ngăn cản việc delete database RDS của chúng ta.
+
+****** Kiểm tra connect ************
+sử dụng telnet : => telnet endpoint_dns port
+
+****** Các kiểu migration *************
+-> Take snapshot
+-> restore to point in time
+-> Migration snapshot => để chuyển snapshot sang một region khác
