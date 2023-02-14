@@ -1,0 +1,49 @@
+- Aurora là một công nghệ độc quyển của AWS (not open source). 
+- Postgres and MySQL đều được hỗ trợ bở Aurora DB (Nghĩa là các drivers của bạn sẽ
+làm việc nếu Aurora là một Postgres or MySQL database)
+- Aurora là "AWS cloud optimized" and cải thiện 5x performace vượt qua MySQL trên RDS, qua 3x performace of Postgres on RDS
+- Dung lượng lưu trữ Aurora tự động tăng theo gia số 10Gb, tối đa 128 TB
+- Aurora có thể có 15 replicas trong khi MySQL có 5, và xử lý nhân rộng là nhanh hơn (sub 10ms replica lag)
+- Aurora chi phí nhiều hơn 20%, tuy nhiên hiệu quả hơn
+
+********** Practice creating Aurora database ***********
+1. chọn "Create database" -> chọn Aurora
+-> chọn Edition (MySQL or Postgres)
+-> chọn version
+2. chọn Template "Production"
+3. Setting : name, username, passwd
+4. chọn "Instance configuration" 
+-> chọn "instance class"  => chọn Burstable classes
+->  chọn db.t2.small 
+-> enable "include previous generation classes
+5. Chọn Availability & durability
+-> chọn "Don't create an Aurora Replica"
+
+6. Connectivity
+-> chọn "Don't connect to an EC2 compute réource
+-> Chọn VPC
+-> Chọn Subnet group
+-> enable "Public access"
+-> chọn "VPC security group (firewall) => có thể tạo mới
+-> chọn Port
+7. Chọn "Database authentication"
+-> chọn "Password authentication"
+8. disable "Monitoring"
+
+9. Chọn database options: 
+-> nhập database name
+-> chọn "DB cluster parameter group"
+-> chọn "DB parameter group"
+
+10. Setting Backup
+-> chọn period 7days
+-> enable copy tags to snapshots
+11. chọn Encrytion 
+-> enable Encrytion
+-> chọn AWS KMS key
+
+11. Setting Backtrack(Backtracking "rewinds" the DB cluster to the time you specify. Backtracking is not a replacement for backing up your DB cluster so that you can restore it to a point in time.)
+-> enable backtrack (nếu cần thiết, bình thường với hệ thống demo thì ko cần)
+
+12. Log exports
+-> enable "Audit log"
