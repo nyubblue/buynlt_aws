@@ -1,0 +1,31 @@
+*********** Overview **************
+Amazone Elastic Cache là một service cung cấp dịch vụ cache data trên AWS Cloud
+Thật ra để làm được dự án yêu cầu phải lưu dữ liệu bạn vẫn có thể lưu DB chứ không nhất thiết phải sử dụng service này của AWS (bởi vì nó tốn phí).
+Tuy nhiên, xét về tính performance của product thì nên lựa chọn Elastic Cache. Bởi lẽ việc extract dữ liệu từ cache chắc chắn sẽ nhanh hơn query từ DB. 
+- Elastic Cache được gọi là “As a managed database service” – một service về database cung cấp cho bạn đầy đủ khả năng quản lý
+
+- Hiện tại thì mọi người hay lựa chọn Redis hơn là Memcache, đơn giản Redis là kỹ thuật mới hơn tiện dụng hơn. Memcache thường được dùng trong các ứng dụng cũ.
+- Có hai loại Elasticache: Đã ghi nhớ(Memcached) và Redis
+******* Memcache:
+Chỉ lưu dữ liệu đơn giản dạng value-key.
+Memcache không có tính persis. Tức là một khi xóa là xóa hẳn, không có backup
+Memcache cung cấp multi node trong một cluster. (Multi-threaded architecture)
+Lưu dữ liệu vào RAM
+
+******* Redis:
+Lưu được những kiểu dữ liệu phức tạp hơn như: string, hash, sets…
+Có tính persis, sau một khoảng thời gian thì tự động lưu dữ liệu vào một file dump
+Lưu dữ liệu vào RAM. Tuy nhiên cũng có cách để đẩy vào swap
+Cho phép Replication. Khi 1 primary node bị hỏng thì replica sẽ được đẩy lên làm primary node.
+Single node. 1 cluster chỉ có thể tạo 1 node, tuy nhiên có thể gom các cluster lại thành 1 group
+Tốm RAM hơn Memcache (nhiều khi dữ liệu ở file dump là 1GB nhưng ở RAM lại ngốn mất 2GB)
+
+
+***** Note khi practice Redis******
+1. ở mục "Node type" thì default sẽ chọn cache.t4g.micro , tuy nhiên ta chọn lại cache.t2.micro để ít tốn money và ko bị lãng phí khi ở môi trường test.
+2. chọn Number of replicas là 0 để ko tạo replicas (tốn tiền)
+3. tạo "Create a new subnet group" => nhập name, description
+4. Trong phần "Advanced settings" chọn disable
+-> disable backup
+5. click next để hoàn thành.
+
