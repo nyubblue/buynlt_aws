@@ -38,6 +38,7 @@ nếu chọn default subnet group thì cần chỉnh lại inbound của "Securi
 
 ****** Kiểm tra connect ************
 sử dụng telnet : => telnet endpoint_dns port
+++ Tuy nhiên không thể ssh vào instance
 
 ****** Các kiểu migration *************
 -> Take snapshot
